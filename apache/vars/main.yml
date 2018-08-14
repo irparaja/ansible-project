@@ -1,0 +1,7 @@
+---
+# config the user and group vars
+  vars:
+    username: tomcat
+    groupname: tomcat
+    nexus-user: admin
+    nexus-pass: admin123

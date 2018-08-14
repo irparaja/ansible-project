@@ -1,0 +1,37 @@
+---
+
+# tasks for the ansible java download and configure
+
+tasks:
+# install tar command
+- name: inatall tar command
+  yum: name=tar state=present
+# add the group tomcat
+- name: add group "tomcat"
+  group: name={{groupname}} state=present
+# add the user to tomcat group 
+- name: add user "tomcat"
+  user: name={{username}} group={{groupname}} home=/usr/share/tomcat createhome=yes
+  become: True
+  become_method: sudo
+# install Java for tomcate 
+- name: Install Java 1.7
+  yum: name=java-1.7.0-openjdk state=present
+# download and configure tomcate
+- name: download tomcate
+  get_url: url=http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.61/bin/apache-tomcat-7.0.61.tar.gz dest=/opt/apache-tomcat-7.0.61.tar.gz
+- name: extract archive
+  command: tar xvf /opt/apache-tomcat-7.0.61.tar.gz
+# set path of tomcate home directory
+- name: set the path for home directory
+  lineinfile: dest=/opt/apache-tomcat-7.0.61 state=present regexp='^CATALINA_HOME' > line='CATALINA_HOME=/opt/apache-tomcat-7.0.61/bin'
+- name: add owner of tomcate 
+  file: path=/opt/ owner={{username}}  group={{groupname}} state=directory recurse=yes
+# copy the user config file to tomcate conf
+- name: copy the template tomcat-user.xml
+  template: src=tomcat-users.xml /opt/apache-tomcat-7.0.61/conf/tomcat-users.xml
+  notify: restart tomcat
+# copy the artifact to tomcate webserver
+- name: deploy war file
+  maven_artifact: group_id=java-servlet-example  artifact_id=java-servlet-example version=1.1 extension=war repository_url=http://localhost:8081/nexus/content/repositories/RAJA  username={{nexus-user}} password={{nexus-pass}} dest=/opt/apache-tomcat-7.0.61/webapps/java-servlet-example-1.1.war
+  notify: tomcat restart
