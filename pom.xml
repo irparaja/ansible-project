@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>java-servlet-example</groupId>
   <artifactId>java-servlet-example</artifactId>
-  <version>1.1</version>
+  <version>${BUILD_NUMBER}</version>
   <packaging>war</packaging>
   <name>java servlet example</name>
   <description>simple servlet example</description>
