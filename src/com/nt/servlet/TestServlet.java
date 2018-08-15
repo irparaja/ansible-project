@@ -33,7 +33,7 @@ public class TestServlet extends HttpServlet{
 		pw.println("<br> path of input.html"+sc.getRealPath("/input.html"));
 		pw.println("<br> MIME type of input.html"+sc.getMimeType("input.html"));
 		
-		//writing Msg to log file
+		//writing Msg to log file1 for java
 		sc.log("Today's Date and time"+new Date());
 
 		//close stream
