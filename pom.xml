@@ -41,8 +41,8 @@
       </plugin>
     </plugins>
   </build>
- <distributionManagement>
-    <repository>
+  <distributionManagement>
+     <repository>
         <id>RAJA</id>
         <name>rajababu</name>
         <url>http://localhost:8081/nexus/content/repositories/RAJA/</url>
