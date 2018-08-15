@@ -41,4 +41,16 @@
       </plugin>
     </plugins>
   </build>
+ <distributionManagement>
+    <repository>
+        <id>RAJA</id>
+        <name>rajababu</name>
+        <url>http://localhost:8081/nexus/content/repositories/RAJA/</url>
+    </repository>
+	<snapshotRepository>
+	<id>snapshots</id>
+        <name>Snapshots</name>
+        <url>http://localhost:8081/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+</distributionManagement> 
 </project>

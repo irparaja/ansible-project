@@ -29,7 +29,7 @@ tasks:
   file: path=/opt/ owner={{username}}  group={{groupname}} state=directory recurse=yes
 # copy the user config file to tomcate conf
 - name: copy the template tomcat-user.xml
-  template: src=tomcat-users.xml /opt/apache-tomcat-7.0.61/conf/tomcat-users.xml
+  template: src=tomcat-users.xml.j2 /opt/apache-tomcat-7.0.61/conf/tomcat-users.xml
   notify: restart tomcat
 # copy the artifact to tomcate webserver
 - name: deploy war file

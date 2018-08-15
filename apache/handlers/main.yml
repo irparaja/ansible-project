@@ -3,3 +3,7 @@
 
 - name: start tomcat
   service: name=tomcat state=started
+  
+- name: start tomcat
+  command: nohup /opt//opt/apache-tomcat-7.0.61/bin/startup.sh
+  
