@@ -24,7 +24,8 @@ tasks:
   command: tar xvf /opt/apache-tomcat-7.0.61.tar.gz
 # set path of tomcate home directory
 - name: set the path for home directory
-  lineinfile: dest=/opt/apache-tomcat-7.0.61 state=present regexp='^CATALINA_HOME' > line='CATALINA_HOME=/opt/apache-tomcat-7.0.61/bin'
+  command: echo "export {{CATALINA_HOME}}" | tee -a /etc/profile
+  command: echo " export {{CATALINA_PATH}}" | tee -a /etc/profile
 - name: add owner of tomcate 
   file: path=/opt/ owner={{username}}  group={{groupname}} state=directory recurse=yes
 # copy the user config file to tomcate conf
@@ -33,5 +34,5 @@ tasks:
   notify: restart tomcat
 # copy the artifact to tomcate webserver
 - name: deploy war file
-  maven_artifact: group_id=java-servlet-example  artifact_id=java-servlet-example version=1.1 extension=war repository_url=http://localhost:8081/nexus/content/repositories/RAJA  username={{nexus-user}} password={{nexus-pass}} dest=/opt/apache-tomcat-7.0.61/webapps/java-servlet-example-1.1.war
+  maven_artifact: group_id=java-servlet-example  artifact_id=java-servlet-example version=${BUILD_NUMBER} extension=war repository_url=http://192.168.0.6:8081/nexus/content/repositories/RAJA  username={{nexus-user}} password={{nexus-pass}} dest=/opt/apache-tomcat-7.0.61/webapps/java-servlet-example-${BUILD_NUMBER}.war
   notify: tomcat restart

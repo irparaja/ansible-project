@@ -5,3 +5,5 @@
     groupname: tomcat
     nexus-user: admin
     nexus-pass: admin123
+    doc_root: CATALINA_HOME=/opt/apache-tomcat-7
+    doc_path: CATALINA_PATH={{CATALINA_HOME}}/bin
