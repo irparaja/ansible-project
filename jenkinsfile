@@ -1,0 +1,31 @@
+pipeline {
+    node('jenkins-node') {
+	   stages {
+	   stage('git scm checkout') {
+	   git 'https://github.com/irparaja/ansible-project.git'
+	   }
+       stage ('maven-build') {
+	      def mvn = tool name: '', type: 'maven'
+		  sh 'mvn verify'
+		  
+	    }
+		stage ('maven-build') {
+	      def mvn = tool name: '', type: 'maven'
+		 sh 'mvn clean install'
+		  
+	    }
+		stage ('maven-build') {
+	      def mvn = tool name: '', type: 'maven'
+		  sh 'mvn package'
+		  
+	    }
+		stage ('user input for deploy') {
+		   input 'proceed to next deploy'
+		 }
+		 stage ('maven-build') {
+	      def mvn = tool name: '', type: 'maven'
+		  sh 'mvn deploy'
+		  
+	    }
+	  }
+}
