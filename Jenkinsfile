@@ -24,8 +24,17 @@ mvn package'''
       }
     }
     stage('stagging') {
-      steps {
-        sh 'echo " this is stagging"'
+      parallel {
+        stage('stagging') {
+          steps {
+            sh 'echo " this is stagging"'
+          }
+        }
+        stage('testing') {
+          steps {
+            emailext(subject: 'this is for testing phase', body: 'nayanatara body ', from: 'irparajabab5190@gmail.com', replyTo: 'irparajabab5190@gmai.lcom', to: 'irparajababu5190@gmail.com')
+          }
+        }
       }
     }
   }
